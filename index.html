@@ -74,6 +74,25 @@
     transition:.25s;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   footer{margin-top:28px;color:#6f6992;font-size:12.5px}
+
+  .escape{display:none;position:fixed;inset:0;z-index:50;background:rgba(6,5,16,.88);
+    padding:70px 16px 24px;overflow:auto;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .escape.show{display:block}
+  .escape .arrow{position:fixed;top:4px;right:14px;font-size:54px;line-height:1;color:var(--yellow);
+    text-shadow:0 0 18px rgba(255,197,61,.7);animation:nudge 1.1s ease-in-out infinite}
+  @keyframes nudge{0%,100%{transform:translate(0,0)}50%{transform:translate(6px,-6px)}}
+  .esc-card{max-width:420px;margin:0 auto;background:var(--bg2);border:1px solid rgba(255,197,61,.45);
+    border-radius:20px;padding:20px 18px;text-align:left}
+  .esc-title{font-family:Unbounded,sans-serif;font-weight:600;font-size:17px;line-height:1.35;margin-bottom:14px}
+  .esc-step{display:flex;gap:12px;align-items:flex-start;margin:12px 0;font-size:16px}
+  .esc-step .num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--pink);color:#fff;
+    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .esc-step b{color:var(--yellow)}
+  .esc-step .dots{font-size:20px;letter-spacing:1px}
+  .esc-or{color:var(--muted);font-size:13px;text-align:center;margin:18px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+  .btn-copybot{margin-top:0}
+  .esc-small{color:var(--muted);font-size:13.5px;margin-top:8px;text-align:center}
+  .escape .link{display:block;margin:14px auto 0}
   .link{color:var(--muted);background:none;border:0;font:inherit;text-decoration:underline;cursor:pointer;margin-top:14px}
 </style>
 </head>
@@ -106,7 +125,7 @@
   <div class="help" id="help">
     <h2>Не открылось? Попробуй так:</h2>
     <ol>
-      <li>На iPhone в TikTok/Instagram нажми «Открыть в Safari» — оттуда Telegram открывается.</li>
+      <li>В TikTok/Instagram нажми <b>⋯</b> в правом верхнем углу → «Открыть в браузере» — оттуда Telegram открывается.</li>
       <li>Или открой Telegram и найди в поиске бота <b>@prime_eraa_bot</b> — нажми «Старт» и «🗳 Голосовать за город».</li>
       <li>Если Telegram ещё не установлен — скачай его, это бесплатно.</li>
     </ol>
@@ -125,6 +144,22 @@
   <footer>© Прайм-Эра</footer>
 </main>
 <div class="toast" id="toast">Ссылка скопирована</div>
+
+<!-- iPhone во встроенном браузере TikTok/Instagram: Telegram оттуда не открывается вообще,
+     поэтому вместо «не удалось» показываем, как выйти в Safari, и запасной путь через копирование. -->
+<div class="escape" id="escape" role="dialog" aria-modal="true">
+  <div class="arrow" aria-hidden="true">↗</div>
+  <div class="esc-card">
+    <div class="esc-title"><span id="escapp">TikTok</span> не пускает в Telegram 😔<br>Это одно касание:</div>
+    <div class="esc-step"><span class="num">1</span><div>Нажми <b class="dots">⋯</b> в&nbsp;<b>правом верхнем углу</b> экрана</div></div>
+    <div class="esc-step"><span class="num">2</span><div>Выбери <b>«Открыть в браузере»</b></div></div>
+    <div class="esc-step"><span class="num">3</span><div>В Safari нажми <b>«🗳 Проголосовать»</b> ещё раз — Telegram откроется сам</div></div>
+    <div class="esc-or">или без браузера</div>
+    <button class="btn btn-sec btn-copybot" id="copybot" type="button">📋&nbsp; Скопировать @prime_eraa_bot</button>
+    <div class="esc-small">Открой Telegram, вставь в поиск, нажми «Старт» → «🗳 Голосовать за город»</div>
+    <button class="link" id="escclose" type="button">Закрыть</button>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -164,20 +199,20 @@
       referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true,
       params: {source: inApp || 'browser'}});
   }
+  // iPhone внутри TikTok/Instagram: проверено 17.11.2026 — ни tg://, ни t.me, ни x-safari-
+  // оттуда не открываются («Выполнить действие не удалось»). Единственный путь — «⋯ → Открыть в браузере».
+  var iosTrap = !!(inApp && isIOS);
   if (inApp){
     $('appname').textContent = inApp; $('hint').classList.add('show');
-    showHelp(); // во встроенном браузере сразу показываем запасные варианты
-    if (isIOS){
-      // iOS: специальная ссылка, которая открывает эту же страницу в Safari
-      var s = $('safari');
-      s.href = 'x-safari-' + location.href;
-      s.style.display = 'flex';
-      s.style.marginTop = '0'; s.style.marginBottom = '12px';
-      s.innerHTML = '🧭&nbsp; Открыть в Safari (надёжнее)';
-      $('open').parentNode.insertBefore(s, $('open')); // ставим первой кнопкой
-      s.addEventListener('click', function(){ goal('safari'); });
+    $('escapp').textContent = inApp;
+    if (iosTrap){
+      $('hint').innerHTML = '<b>Из ' + inApp + ' Telegram не открывается.</b> Нажми <b>⋯</b> в правом верхнем углу → <b>«Открыть в браузере»</b> — и кнопки ниже заработают.';
+    } else {
+      showHelp(); // Android: во встроенном браузере сразу показываем запасные варианты
     }
   }
+  function showEscape(){ $('escape').classList.add('show'); goal('escape_shown'); }
+  $('escclose').onclick = function(){ $('escape').classList.remove('show'); };
 
   // Ссылка на магазин приложений под устройство
   if (isIOS) $('dl').href = 'https://apps.apple.com/app/telegram-messenger/id686449807';
@@ -188,6 +223,7 @@
   function openApp(domain, start, e){
     if (!isMobile) return; // на компьютере обычная ссылка t.me работает лучше
     e.preventDefault();
+    if (iosTrap){ showEscape(); return; } // всё равно не откроется — сразу показываем, как выйти
     var q = 'resolve?domain=' + domain + (start ? '&start=' + start : '');
     var web = 'https://t.me/' + domain + (start ? '?start=' + start : '');
     var direct = 'tg://' + q;
@@ -207,23 +243,24 @@
   $('open').addEventListener('click', function(e){ goal('open_vote'); openApp(BOT, VOTE_START, e); });
   $('bot').addEventListener('click', function(e){ goal('open_bot'); openApp(BOT, ORDER_START, e); });
   $('channel').addEventListener('click', function(e){ goal('open_channel'); openApp(CHANNEL, '', e); });
-  $('web').addEventListener('click', function(){ goal('open_web'); });
+  $('web').addEventListener('click', function(e){ goal('open_web'); if (iosTrap){ e.preventDefault(); showEscape(); } });
   $('dl').addEventListener('click', function(){ goal('download'); });
 
-  // Копирование ссылки
-  $('copy').onclick = function(){
-    goal('copy');
-    var done = function(){ var t=$('toast'); t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},1800); };
+  // Копирование
+  function copyText(text, msg){
+    var done = function(){ var t=$('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},2200); };
     if (navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(WEB).then(done, fallback);
+      navigator.clipboard.writeText(text).then(done, fallback);
     } else fallback();
     function fallback(){
-      var ta=document.createElement('textarea'); ta.value=WEB; ta.style.position='fixed'; ta.style.opacity='0';
+      var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
       document.body.appendChild(ta); ta.select();
-      try{ document.execCommand('copy'); done(); }catch(err){ prompt('Скопируй ссылку:', WEB); }
+      try{ document.execCommand('copy'); done(); }catch(err){ prompt('Скопируй:', text); }
       document.body.removeChild(ta);
     }
-  };
+  }
+  $('copy').onclick = function(){ goal('copy'); copyText(WEB, 'Ссылка скопирована'); };
+  $('copybot').onclick = function(){ goal('copy_bot'); copyText('@' + BOT, 'Скопировано — вставь в поиск Telegram'); };
 
   // QR-код для компьютера
   if (!isMobile && window.QRCode){

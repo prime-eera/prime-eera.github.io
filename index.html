@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Прайм-Эра — голосуй за свой город</title>
-<meta name="description" content="Ролики о прайм-эре наших городов. Выбирай, какой город снимем следующим, — ролик придёт тебе лично.">
-<meta property="og:title" content="Прайм-Эра — голосуй за свой город">
-<meta property="og:description" content="Ролики о прайм-эре наших городов. Выбирай, какой город снимем следующим, — ролик придёт тебе лично.">
+<title>Прайм-Эра — канал о прайм-эре наших городов</title>
+<meta name="description" content="Все ролики о прайм-эре наших городов — в Telegram-канале. Подписывайся и голосуй, какой город снимем следующим.">
+<meta property="og:title" content="Прайм-Эра — канал о прайм-эре наших городов">
+<meta property="og:description" content="Все ролики о прайм-эре наших городов — в Telegram-канале. Подписывайся и голосуй, какой город снимем следующим.">
 <meta property="og:image" content="avatar.jpg">
 <meta name="theme-color" content="#0d0b1f">
 <link rel="icon" href="avatar.jpg">
@@ -101,36 +101,36 @@
   <img class="avatar" src="avatar.jpg" alt="Прайм-Эра" width="112" height="112">
   <h1>Прайм-<span class="e">Эра</span></h1>
   <div class="handle">Ролики о прайм-эре наших городов</div>
-  <p class="desc">Москва, Минск, Питер — уже вышли. <b>Какой город следующий — решаешь ты.</b> Проголосуй, и ролик про твой город придёт тебе лично, как только выйдет.</p>
+  <p class="desc">Москва, Минск, Питер и другие города — <b>ролики о прайм-эре в нашем Telegram-канале.</b> Подписывайся, чтобы не пропустить свой город. А какой город снимем следующим — решаешь ты.</p>
 
   <div class="hint" id="hint">
     Похоже, ты открыл ссылку внутри <b id="appname">приложения</b> — там Telegram иногда не запускается.<br>
     Если кнопка не сработает: нажми <b>⋯</b> или <b>⋮</b> в углу экрана → <b>«Открыть в браузере»</b>.
   </div>
 
-  <a class="btn btn-vote" id="open" href="https://t.me/prime_eraa_bot?start=vote_landing">
+  <a class="btn btn-main" href="https://t.me/prime_eera" id="channel">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.8 15.3l-.4 5.4c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .5 1.7.3 2-.9l3.6-17c.3-1.5-.6-2.1-1.6-1.7L1.4 9.4c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7L19 5c.6-.4 1.1-.2.7.2z"/></svg>
+    Подписаться на канал
+  </a>
+  <div class="under">Откроется в Telegram · бесплатно</div>
+
+  <a class="btn btn-bot" id="open" href="https://t.me/prime_eraa_bot?start=vote_landing">
     🗳&nbsp; Проголосовать за свой город
   </a>
-  <div class="under">Откроется в Telegram · бесплатно · 10 секунд</div>
 
   <a class="btn btn-order" href="https://t.me/prime_eraa_bot?start=landing" id="bot">
     🎬&nbsp; Ролик про твой двор — на заказ
-  </a>
-
-  <a class="btn btn-channel" href="https://t.me/prime_eera" id="channel">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.8 15.3l-.4 5.4c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .5 1.7.3 2-.9l3.6-17c.3-1.5-.6-2.1-1.6-1.7L1.4 9.4c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7L19 5c.6-.4 1.1-.2.7.2z"/></svg>
-    Канал со всеми роликами
   </a>
 
   <div class="help" id="help">
     <h2>Не открылось? Попробуй так:</h2>
     <ol>
       <li>В TikTok/Instagram нажми <b>⋯</b> в правом верхнем углу → «Открыть в браузере» — оттуда Telegram открывается.</li>
-      <li>Или открой Telegram и найди в поиске бота <b>@prime_eraa_bot</b> — нажми «Старт» и «🗳 Голосовать за город».</li>
+      <li>Или открой Telegram и найди в поиске канал <b>@prime_eera</b> — нажми «Подписаться».</li>
       <li>Если Telegram ещё не установлен — скачай его, это бесплатно.</li>
     </ol>
     <a class="btn btn-sec btn-safari" id="safari" href="#" style="display:none">🧭&nbsp; Открыть в Safari</a>
-    <a class="btn btn-sec" id="web" href="https://t.me/prime_eraa_bot?start=vote_landing" target="_blank" rel="noopener">Открыть через сайт t.me</a>
+    <a class="btn btn-sec" id="web" href="https://t.me/prime_eera" target="_blank" rel="noopener">Открыть через сайт t.me</a>
     <button class="btn btn-sec" id="copy" type="button">Скопировать ссылку</button>
     <a class="btn btn-sec" id="dl" href="https://telegram.org/apps" target="_blank" rel="noopener">Скачать Telegram</a>
   </div>
@@ -153,10 +153,10 @@
     <div class="esc-title"><span id="escapp">TikTok</span> не пускает в Telegram 😔<br>Это одно касание:</div>
     <div class="esc-step"><span class="num">1</span><div>Нажми <b class="dots">⋯</b> в&nbsp;<b>правом верхнем углу</b> экрана</div></div>
     <div class="esc-step"><span class="num">2</span><div>Выбери <b>«Открыть в браузере»</b></div></div>
-    <div class="esc-step"><span class="num">3</span><div>В Safari нажми <b>«🗳 Проголосовать»</b> ещё раз — Telegram откроется сам</div></div>
+    <div class="esc-step"><span class="num">3</span><div>В Safari нажми <b>«Подписаться на канал»</b> ещё раз — Telegram откроется сам</div></div>
     <div class="esc-or">или без браузера</div>
-    <button class="btn btn-sec btn-copybot" id="copybot" type="button">📋&nbsp; Скопировать @prime_eraa_bot</button>
-    <div class="esc-small">Открой Telegram, вставь в поиск, нажми «Старт» → «🗳 Голосовать за город»</div>
+    <button class="btn btn-sec btn-copybot" id="copybot" type="button">📋&nbsp; Скопировать @prime_eera</button>
+    <div class="esc-small">Открой Telegram, вставь в поиск и нажми «Подписаться»</div>
     <button class="link" id="escclose" type="button">Закрыть</button>
   </div>
 </div>
@@ -168,7 +168,7 @@
   var BOT = 'prime_eraa_bot';
   var VOTE_START = 'vote_landing';   // метка: в боте /stats покажет, сколько пришло со страницы
   var ORDER_START = 'landing';
-  var WEB = 'https://t.me/' + BOT + '?start=' + VOTE_START;
+  var WEB = 'https://t.me/' + CHANNEL;   // с 17.11.2026 главная цель — подписка на канал (копим аудиторию)
   var ua = navigator.userAgent || '';
   var isAndroid = /Android/i.test(ua);
   var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -260,7 +260,7 @@
     }
   }
   $('copy').onclick = function(){ goal('copy'); copyText(WEB, 'Ссылка скопирована'); };
-  $('copybot').onclick = function(){ goal('copy_bot'); copyText('@' + BOT, 'Скопировано — вставь в поиск Telegram'); };
+  $('copybot').onclick = function(){ goal('copy_channel'); copyText('@' + CHANNEL, 'Скопировано — вставь в поиск Telegram'); };
 
   // QR-код для компьютера
   if (!isMobile && window.QRCode){

@@ -126,7 +126,7 @@
     <h2>Не открылось? Попробуй так:</h2>
     <ol>
       <li>В TikTok/Instagram нажми <b>⋯</b> в правом верхнем углу → «Открыть в браузере» — оттуда Telegram открывается.</li>
-      <li>Или открой Telegram и найди в поиске канал <b>@prime_eera</b> — нажми «Подписаться».</li>
+      <li>Или нажми «Скопировать ссылку» ниже, открой Telegram, вставь ссылку в любой чат (например, «Избранное») и нажми на неё.</li>
       <li>Если Telegram ещё не установлен — скачай его, это бесплатно.</li>
     </ol>
     <a class="btn btn-sec btn-safari" id="safari" href="#" style="display:none">🧭&nbsp; Открыть в Safari</a>
@@ -155,8 +155,8 @@
     <div class="esc-step"><span class="num">2</span><div>Выбери <b>«Открыть в браузере»</b></div></div>
     <div class="esc-step"><span class="num">3</span><div>В Safari нажми <b>«Подписаться на канал»</b> ещё раз — Telegram откроется сам</div></div>
     <div class="esc-or">или без браузера</div>
-    <button class="btn btn-sec btn-copybot" id="copybot" type="button">📋&nbsp; Скопировать @prime_eera</button>
-    <div class="esc-small">Открой Telegram, вставь в поиск и нажми «Подписаться»</div>
+    <button class="btn btn-sec btn-copybot" id="copybot" type="button">📋&nbsp; Скопировать ссылку на канал</button>
+    <div class="esc-small">Открой Telegram, вставь ссылку в «Избранное», отправь и нажми на неё</div>
     <button class="link" id="escclose" type="button">Закрыть</button>
   </div>
 </div>
@@ -265,7 +265,7 @@
     }
   }
   $('copy').onclick = function(){ goal('copy'); copyText(WEB, 'Ссылка скопирована'); };
-  $('copybot').onclick = function(){ goal('copy_channel'); copyText('@' + CHANNEL, 'Скопировано — вставь в поиск Telegram'); };
+  $('copybot').onclick = function(){ goal('copy_channel'); copyText(WEB, 'Скопировано — вставь в «Избранное» в Telegram'); };
 
   // QR-код для компьютера
   if (!isMobile && window.QRCode){

@@ -108,7 +108,7 @@
     Если кнопка не сработает: нажми <b>⋯</b> или <b>⋮</b> в углу экрана → <b>«Открыть в браузере»</b>.
   </div>
 
-  <a class="btn btn-main" href="https://t.me/prime_eera" id="channel">
+  <a class="btn btn-main" href="https://t.me/+g4dYJCVgXTs3NjMy" id="channel">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.8 15.3l-.4 5.4c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .5 1.7.3 2-.9l3.6-17c.3-1.5-.6-2.1-1.6-1.7L1.4 9.4c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7L19 5c.6-.4 1.1-.2.7.2z"/></svg>
     Подписаться на канал
   </a>
@@ -130,7 +130,7 @@
       <li>Если Telegram ещё не установлен — скачай его, это бесплатно.</li>
     </ol>
     <a class="btn btn-sec btn-safari" id="safari" href="#" style="display:none">🧭&nbsp; Открыть в Safari</a>
-    <a class="btn btn-sec" id="web" href="https://t.me/prime_eera" target="_blank" rel="noopener">Открыть через сайт t.me</a>
+    <a class="btn btn-sec" id="web" href="https://t.me/+g4dYJCVgXTs3NjMy" target="_blank" rel="noopener">Открыть через сайт t.me</a>
     <button class="btn btn-sec" id="copy" type="button">Скопировать ссылку</button>
     <a class="btn btn-sec" id="dl" href="https://telegram.org/apps" target="_blank" rel="noopener">Скачать Telegram</a>
   </div>
@@ -168,7 +168,10 @@
   var BOT = 'prime_eraa_bot';
   var VOTE_START = 'vote_landing';   // метка: в боте /stats покажет, сколько пришло со страницы
   var ORDER_START = 'landing';
-  var WEB = 'https://t.me/' + CHANNEL;   // с 17.11.2026 главная цель — подписка на канал (копим аудиторию)
+  // 20.11.2026: вход в канал — по ссылке-заявке (метка landing, создана ботом /joinlink landing).
+  // Заявку принимает бот: шлёт приветствие, пишет человека в базу (источник join_landing) и впускает.
+  var JOIN_HASH = 'g4dYJCVgXTs3NjMy';
+  var WEB = 'https://t.me/+' + JOIN_HASH;   // с 17.11.2026 главная цель — подписка на канал (копим аудиторию)
   var ua = navigator.userAgent || '';
   var isAndroid = /Android/i.test(ua);
   var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -221,11 +224,13 @@
 
   // Главная кнопка: открываем приложение напрямую, минуя сайт t.me
   function openApp(domain, start, e){
+    openTg('resolve?domain=' + domain + (start ? '&start=' + start : ''),
+           'https://t.me/' + domain + (start ? '?start=' + start : ''), e);
+  }
+  function openTg(q, web, e){
     if (!isMobile) return; // на компьютере обычная ссылка t.me работает лучше
     e.preventDefault();
     if (iosTrap){ showEscape(); return; } // всё равно не откроется — сразу показываем, как выйти
-    var q = 'resolve?domain=' + domain + (start ? '&start=' + start : '');
-    var web = 'https://t.me/' + domain + (start ? '?start=' + start : '');
     var direct = 'tg://' + q;
     if (isAndroid && inApp){
       // В Android-приложениях соцсетей intent:// вырывается из встроенного браузера
@@ -242,7 +247,7 @@
   }
   $('open').addEventListener('click', function(e){ goal('open_vote'); openApp(BOT, VOTE_START, e); });
   $('bot').addEventListener('click', function(e){ goal('open_bot'); openApp(BOT, ORDER_START, e); });
-  $('channel').addEventListener('click', function(e){ goal('open_channel'); openApp(CHANNEL, '', e); });
+  $('channel').addEventListener('click', function(e){ goal('open_channel'); openTg('join?invite=' + JOIN_HASH, WEB, e); });
   $('web').addEventListener('click', function(e){ goal('open_web'); if (iosTrap){ e.preventDefault(); showEscape(); } });
   $('dl').addEventListener('click', function(){ goal('download'); });
 

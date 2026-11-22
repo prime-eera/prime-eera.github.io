@@ -47,6 +47,7 @@
   .btn-bot{background:linear-gradient(135deg,var(--pink),#d6286f);box-shadow:0 8px 24px rgba(255,61,139,.28);margin-top:12px}
   .btn-vote{background:linear-gradient(135deg,var(--pink),#d6286f);box-shadow:0 8px 28px rgba(255,61,139,.4);font-size:18px;padding:19px 20px}
   .btn-order{background:linear-gradient(135deg,#ffc53d,#f0a417);color:#1a1300;box-shadow:0 8px 24px rgba(255,197,61,.25);margin-top:12px}
+  .btn-course{background:linear-gradient(135deg,#7c5cff,#5a3fd6);box-shadow:0 8px 24px rgba(124,92,255,.3);margin-top:12px}
   .btn-channel{background:var(--card);border:1px solid var(--line);font-weight:600;font-size:15.5px;margin-top:12px}
   .under{color:var(--muted);font-size:13.5px;margin-top:8px}
 
@@ -121,6 +122,12 @@
   <a class="btn btn-order" href="https://t.me/prime_eraa_bot?start=landing" id="bot">
     🎬&nbsp; Ролик про твой двор — на заказ
   </a>
+
+  <!-- 22.11.2026: гайд — прямо на страницу оплаты Tribute (сайт, открывается и из TikTok без Telegram) -->
+  <a class="btn btn-course" href="https://web.tribute.tg/p/L6q" id="course" target="_blank" rel="noopener">
+    🎓&nbsp; Научиться самому — гайд
+  </a>
+  <div class="under">Пошаговый PDF-гайд · 490 ₽</div>
 
   <div class="help" id="help">
     <h2>Не открылось? Попробуй так:</h2>
@@ -250,6 +257,7 @@
   $('channel').addEventListener('click', function(e){ goal('open_channel'); openTg('join?invite=' + JOIN_HASH, WEB, e); });
   $('web').addEventListener('click', function(e){ goal('open_web'); if (iosTrap){ e.preventDefault(); showEscape(); } });
   $('dl').addEventListener('click', function(){ goal('download'); });
+  $('course').addEventListener('click', function(){ goal('open_course'); });
 
   // Копирование
   function copyText(text, msg){
